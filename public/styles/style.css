@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, rgb(250, 208, 20), rgb(80, 69, 6));
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#jugadoresContainer {
+    display: flex;
+}
+
+#presentationPhoto {
+    height: 200px;
+}
+
+img#logo {
+    width: 100px;
+    height: 100px;
+}
+
+img#logonav {
+    transition: all 1s ease;
+}
+
+img#logonav:hover {
+    transform: scale(1.5);
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 25px 40px;
+    background-color: rgb(235, 195, 20);
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+h1 {
+    margin-top: 10px;
+    text-align: center;
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+h1:hover {
+    transform: scale(1.1);
+}
+
+p {
+    margin: 20px 10px;
+    line-height: 1.6;
+}
+
+#containerIndexPhoto {
+    margin: 30px auto;
+    background: linear-gradient(135deg, #FFD100, #F5C400);
+    padding: 20px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: fit-content;
+}
+
+#indexPhoto {
+    border-radius: 20px;
+    width: 400px;
+}
+
+.fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 1s ease forwards;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.error {
+    color: red;
+}
+
+.imgPlayer {
+    width: 200px;
+    height: 200px;
+}
