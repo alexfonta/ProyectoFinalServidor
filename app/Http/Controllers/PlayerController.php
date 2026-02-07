@@ -40,23 +40,27 @@ class PlayerController extends Controller
     }
 
     public function store(PlayerRequest $request)
-{
-    $player = new Player();
+    {
+        $player = new Player();
 
-    $player->name = $request->name;
-    $player->twitter = $request->twitter;
-    $player->instagram = $request->instagram;
-    $player->twitch = $request->twitch;
-    $player->visible = $request->boolean('visible');
-    $player->age = $request->age;
-    $player->role = $request->role;
+        $player->name = $request->name;
+        $player->twitter = $request->twitter;
+        $player->instagram = $request->instagram;
+        $player->twitch = $request->twitch;
+        $player->visible = $request->boolean('visible');
+        $player->age = $request->age;
+        $player->role = $request->role;
 
-    // Directo: Si no hay foto, esta línea simplemente se ignora o guarda null
-    $player->photo = $request->hasFile('photo') ? $request->file('photo')->move('img/players', time().'.'.$request->file('photo')->getClientOriginalExtension())->getFilename() : null;
-    $player->save();
+        if ($request->hasFile('photo')) {
+            $filename = $request->file('photo')->getClientOriginalName();
+            $path = $request->file('photo')->storeAs('players', $filename, 'public');
+            $player->photo = $path;
+        }
 
-    return redirect()->route('players.show', $player);
-}
+        $player->save();
+
+        return redirect()->route('players.show', $player);
+    }
 
     public function show(Player $player)
     {

@@ -8,11 +8,11 @@
     <h2>Lista de integrantes del Equipo Vitality:</h2>
 
     @foreach ($players as $player)
-        <div id="jugadoresContainer">
-            <a href="{{route('players.show', $player)}}"><b>{{$player->name}}</b></a>
+        <div class="playerCard">
             @if($player->photo)
-                <img class="imgPlayer" src="/storage/{{$players->photo}}" alt="{{$player->name }}" id="presentationPhoto">
+                <img class="playerPhoto" src="{{ asset('storage/'.$player->photo) }}" alt="{{$player->name }}">
             @endif
+            <a href="{{route('players.show', $player)}}" class="playerName"><b>{{$player->name}}</b></a>
         </div>
     @endforeach
 
