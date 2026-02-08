@@ -14,8 +14,6 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Str;
 
-use Illuminate\Support\Facades\Storage;
-
 
 class PlayerController extends Controller
 
@@ -51,14 +49,7 @@ class PlayerController extends Controller
         $player->age = $request->age;
         $player->role = $request->role;
 
-        if ($request->hasFile('photo')) {
-            $filename = $request->file('photo')->getClientOriginalName();
-            $path = $request->file('photo')->storeAs('players', $filename, 'public');
-            $player->photo = $path;
-        }
-
         $player->save();
-
         return redirect()->route('players.show', $player);
     }
 
@@ -68,49 +59,27 @@ class PlayerController extends Controller
     }
 
     /**
-
      * Show the form for editing the specified resource.
-
      */
-
     public function edit(Player $player)
-
     {
-
         //
-
     }
 
-
-
     /**
-
      * Update the specified resource in storage.
-
      */
-
     public function update(Request $request, Player $player)
-
     {
-
         //
-
     }
 
-
-
     /**
-
      * Remove the specified resource from storage.
-
      */
-
     public function destroy(Player $player)
-
     {
-
         //
-
     }
 
 }
