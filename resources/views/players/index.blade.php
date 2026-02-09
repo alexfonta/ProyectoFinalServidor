@@ -10,7 +10,7 @@
     @foreach ($players as $player)
         <div class="playerCard">
             @if($player->photo)
-                <img class="playerPhoto" src="{{ asset('storage/'.$player->photo) }}" alt="{{$player->name }}">
+                <img class="playerPhoto" src="/storage/{{$player->photo }}" alt="{{$player->name}} ">
             @endif
             <a href="{{route('players.show', $player)}}" class="playerName"><b>{{$player->name}}</b></a>
         </div>

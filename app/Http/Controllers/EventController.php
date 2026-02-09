@@ -60,15 +60,27 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        return view('events.edit' , compact('event'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Event $event)
+    public function update(EventRequest $request, Event $event)
     {
-        //
+        $event->name = $request->input('name');
+        $event->description = $request->input('description');
+        $event->location = $request->input('location');
+        $event->map = $request->input('map');
+        $event->date = $request->input('date');
+        $event->hour = $request->input('hour');
+        $event->type = $request->input('type');
+        $event->tags = $request->input('tags');
+        $event->visible = $request->has('visible');
+
+        $event->save();
+
+        return redirect()->route('events.show', $event);
     }
 
     /**

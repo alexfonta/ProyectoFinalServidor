@@ -25,7 +25,7 @@
         </div>
     @endif
 
-    <form action="{{ route('signup') }}" method="POST" class="auth-form">
+    <form action="{{ route('login.signup') }}" method="POST" class="auth-form">
         @csrf
 
         <div class="form-group">
@@ -102,7 +102,7 @@
     </form>
 
     <p class="auth-link">
-        ¿Ya tienes cuenta? <a href="{{ route('login') }}">Inicia sesión aquí</a>
+        ¿Ya tienes cuenta? <a href="{{ route('login.form') }}">Inicia sesión aquí</a>
     </p>
 </div>
 

@@ -26,10 +26,10 @@ class PlayerRequest extends FormRequest
             'twitter' => 'min:3|max:30|nullable',
             'instagram' => 'min:3|max:30|nullable',
             'twitch' => 'min:3|max:30|nullable',
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
             'visible' => 'nullable|boolean',
             'age' => 'required|numeric',
-            'role' => 'min:3|max:15|required'
+            'role' => 'min:3|max:15|required',
+            'photo' => 'required|image|max:2048',
         ];
     }
 

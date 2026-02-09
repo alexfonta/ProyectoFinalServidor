@@ -35,8 +35,8 @@
                 <button type="submit" class="btn-logout">Cerrar Sesión</button>
             </form>
         @else
-            <a href="{{route('login.show')}}" class="nav-link">Iniciar Sesión</a>
-            <a href="{{route('signup.show')}}" class="nav-link nav-signup">Registrarse</a>
+            <a href="{{route('login.form')}}" class="nav-link">Iniciar Sesión</a>
+            <a href="{{route('signup')}}" class="nav-link nav-signup">Registrarse</a>
         @endauth
     </div>
 </nav>

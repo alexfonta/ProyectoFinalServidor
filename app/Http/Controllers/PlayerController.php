@@ -45,6 +45,7 @@ class PlayerController extends Controller
         $player->twitter = $request->twitter;
         $player->instagram = $request->instagram;
         $player->twitch = $request->twitch;
+        $player->photo = $request->file('photo')->store('players', 'public');
         $player->visible = $request->boolean('visible');
         $player->age = $request->age;
         $player->role = $request->role;
@@ -63,15 +64,24 @@ class PlayerController extends Controller
      */
     public function edit(Player $player)
     {
-        //
+        return view('players.edit', compact('player'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Player $player)
+    public function update(PlayerRequest $request, Player $player)
     {
-        //
+        $player->name = $request->name;
+        $player->twitter = $request->twitter;
+        $player->instagram = $request->instagram;
+        $player->twitch = $request->twitch;
+        $player->visible = $request->boolean('visible');
+        $player->age = $request->age;
+        $player->role = $request->role;
+
+        $player->save();
+        return redirect()->route('players.show', $player);
     }
 
     /**

@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('twitter')->nullable();
             $table->string('instagram')->nullable();
             $table->string('twitch')->nullable();
-            $table->string('photo')->nullable();
+            $table->string('photo');
             $table->boolean('visible')->default(false);
             $table->unsignedInteger('age');
             $table->string('role');

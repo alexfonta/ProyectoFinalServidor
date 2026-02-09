@@ -6,57 +6,88 @@
 
 @section('content')
 
-    <form action="{{route('events.store')}}" method="POST">
-        @csrf
-        <label for="name">Nombre:</label><br>
-        <input type="text" name="name" id="name" value="{{old('name')}}" placeholder="nombre"> <br>
-        @error('name')<div class="error"> Error: {{$message}}</div> @enderror
+    <div class="events-create-container">
+        <h1 class="page-title">Crear evento</h1>
+        <p class="lead">Rellena los datos del evento y pulsa "Crear evento".</p>
 
+        <form action="{{ route('events.store') }}" method="POST" class="events-form">
+            @csrf
 
-        <label for="description">Descripción:</label><br>
-        <textarea name="description" id="description" cols="30" rows="10">{{ old('description') }}</textarea> <br>
-        @error('description')
-            <div class="error"> Error: {{ $message }}</div>
-        @enderror
+            <div class="form-group">
+                <label for="name">Nombre</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value="{{ old('name') }}"
+                    class="form-control @error('name') is-invalid @enderror"
+                    placeholder="Nombre del evento"
+                    required
+                >
+                @error('name') <span class="error-message">{{ $message }}</span> @enderror
+            </div>
 
-        <label for="location">Ubicación:</label> <br>
-        <input type="text" name="location" id="location" value="{{old('location')}}" placeholder="ubicación"> <br>
-        @error('date')<div class="error"> Error: {{$message}}</div> @enderror
+            <div class="form-group">
+                <label for="description">Descripción</label>
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="5"
+                    class="form-control @error('description') is-invalid @enderror"
+                    placeholder="Descripción breve del evento"
+                >{{ old('description') }}</textarea>
+                @error('description') <span class="error-message">{{ $message }}</span> @enderror
+            </div>
 
-        <label for="date">Fecha:</label> <br>
-        <input type="text" name="date" id="date" value="{{old('date')}}" placeholder="fecha"> <br>
-        @error('date')<div class="error"> Error: {{$message}}</div> @enderror
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="location">Ubicación</label>
+                    <input type="text" id="location" name="location" value="{{ old('location') }}" class="form-control" placeholder="Ciudad / Lugar">
+                    @error('location') <span class="error-message">{{ $message }}</span> @enderror
+                </div>
+                <div class="form-group col">
+                    <label for="date">Fecha</label>
+                    <input type="date" id="date" name="date" value="{{ old('date') }}" class="form-control">
+                    @error('date') <span class="error-message">{{ $message }}</span> @enderror
+                </div>
+                <div class="form-group col">
+                    <label for="hour">Hora</label>
+                    <input type="time" id="hour" name="hour" value="{{ old('hour') }}" class="form-control">
+                    @error('hour') <span class="error-message">{{ $message }}</span> @enderror
+                </div>
+            </div>
 
-        <label for="date">map:</label> <br>
-        <input type="text" name="map" id="map" value="{{old('map')}}" placeholder="mapa"> <br>
-        @error('mapa')<div class="error"> Error: {{$message}}</div> @enderror
+            <div class="form-row">
+                <div class="form-group col">
+                    <label for="type">Tipo</label>
+                    <select id="type" name="type" class="form-control">
+                        <option value="" disabled {{ old('type') ? '' : 'selected' }}>Selecciona una opción</option>
+                        <option value="official" {{ old('type') === 'official' ? 'selected' : '' }}>Oficial</option>
+                        <option value="exhibition" {{ old('type') === 'exhibition' ? 'selected' : '' }}>Exhibición</option>
+                        <option value="charity" {{ old('type') === 'charity' ? 'selected' : '' }}>Caridad</option>
+                    </select>
+                    @error('type') <span class="error-message">{{ $message }}</span> @enderror
+                </div>
 
-        <label for="hour">Hora:</label> <br>
-        <input type="text" name="hour" id="hour" value="{{old('hour')}}" placeholder="hora"> <br>
-        @error('hour')<div class="error"> Error: {{$message}}</div> @enderror
+                <div class="form-group col">
+                    <label for="tags">Tags</label>
+                    <input type="text" id="tags" name="tags" value="{{ old('tags') }}" class="form-control" placeholder="Separados por comas">
+                    @error('tags') <span class="error-message">{{ $message }}</span> @enderror
+                </div>
 
-        <label for="type">Tipo:</label> <br>
-        <select name="type" id="type">
-            <option value="" disabled selected>Selecciona una opción</option>
-            <option value="official">Oficial</option>
-            <option value="exhibition">Exhibición</option>
-            <option value="charity">Caridad</option>
-        </select>
-        <br>
-        @error('type')<div class="error"> Error: {{$message}}</div> @enderror
+                <div class="form-group col visible-col">
+                    <label for="visible">Visible</label>
+                    <div class="checkbox-field">
+                        <input type="checkbox" id="visible" name="visible" value="1" {{ old('visible') ? 'checked' : '' }}>
+                    </div>
+                    @error('visible') <span class="error-message">{{ $message }}</span> @enderror
+                </div>
+            </div>
 
-        <label for="tags">Tags:</label> <br>
-        <input type="text" name="tags" id="tags" value="{{old('tags')}}" placeholder="tags"> <br>
-        @error('tags')<div class="error"> Error: {{$message}}</div> @enderror
-
-        <label for="visible">Visible:</label> <br>
-        <input type="checkbox" name="visible" id="visible" value="1" {{ old('visible') ? 'checked' : '' }}> <br>
-        @error('visible')<div class="error"> Error: {{$message}}</div> @enderror <br>
-
-        <input type="submit" value="Enviar">
-        <input type="reset" value="Borrar">
-    </form>
-    @foreach ($errors as $error)
-        {{$error}} <br>
-    @endforeach
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">Crear evento</button>
+                <a href="{{ route('events.index') }}" class="btn-cancel">Cancelar</a>
+            </div>
+        </form>
+    </div>
 @endsection
