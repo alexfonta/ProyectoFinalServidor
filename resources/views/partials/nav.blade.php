@@ -9,7 +9,9 @@
         @auth
             <a href="{{route('events.index')}}" class="nav-link">Eventos</a>
             <a href="{{route('players.index')}}" class="nav-link">Jugadores</a>
-            <a href="{{route('players.create')}}" class="nav-link">Añadir Jugador</a>
+            @if(auth()->user()->rol === 'admin')
+                <a href="{{route('players.create')}}" class="nav-link">Añadir Jugador</a>
+            @endif
 
             @if(auth()->user()->rol === 'admin')
                 <a href="{{route('users.list')}}" class="nav-link nav-admin">Usuarios</a>

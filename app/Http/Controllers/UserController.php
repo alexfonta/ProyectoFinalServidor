@@ -99,4 +99,45 @@ class UserController extends Controller
         }
         return redirect()->route('index')->with('error', 'No tienes permisos para acceder a este recurso');
     }
+
+    /**
+     * Mostrar formulario de edición de usuario (solo admin)
+     */
+    public function edit(User $user) {
+        if(Auth::check() && Auth::user()->rol == 'admin') {
+            return view('users.edit', compact('user'));
+        }
+        return redirect()->route('index')->with('error', 'No tienes permisos para acceder a este recurso');
+    }
+
+    /**
+     * Actualizar usuario (solo admin)
+     */
+    public function update(Request $request, User $user) {
+        if(Auth::check() && Auth::user()->rol == 'admin') {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email,' . $user->id,
+                'rol' => 'required|in:admin,member,shop'
+            ]);
+
+            $user->update($validated);
+            return redirect()->route('users.list')->with('success', 'Usuario actualizado correctamente');
+        }
+        return redirect()->route('index')->with('error', 'No tienes permisos para acceder a este recurso');
+    }
+
+    /**
+     * Eliminar usuario (solo admin)
+     */
+    public function destroy(User $user) {
+        if(Auth::check() && Auth::user()->rol == 'admin') {
+            if(Auth::user()->id === $user->id) {
+                return redirect()->route('users.list')->with('error', 'No puedes eliminarte a ti mismo');
+            }
+            $user->delete();
+            return redirect()->route('users.list')->with('success', 'Usuario eliminado correctamente');
+        }
+        return redirect()->route('index')->with('error', 'No tienes permisos para acceder a este recurso');
+    }
 }

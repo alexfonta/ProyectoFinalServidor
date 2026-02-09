@@ -50,8 +50,12 @@
                             <td>{{ $user->created_at->format('d/m/Y') }}</td>
                             <td class="actions">
                                 @if (auth()->user()->id !== $user->id)
-                                    <button class="btn-action btn-edit">Editar</button>
-                                    <button class="btn-action btn-delete">Eliminar</button>
+                                    <a href="{{ route('users.edit', $user) }}" class="btn-action btn-edit">Editar</a>
+                                    <form action="{{ route('users.destroy', $user) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este usuario?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn-action btn-delete">Eliminar</button>
+                                    </form>
                                 @else
                                     <span class="text-muted">Sin acciones</span>
                                 @endif
